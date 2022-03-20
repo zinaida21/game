@@ -8,7 +8,6 @@
 .game {
     background-color: #004980;
     width: 100%;
-    height: 100vh;
     display: flex;
 }
 
@@ -16,7 +15,7 @@
     margin: auto;
     max-width: 480px;
     width: 100%;
-    background-color: #C2F5FF;
+    background-color: #c2f5ff;
     border-radius: 12px;
     padding: 50px;
     display: flex;
@@ -44,10 +43,10 @@
 .level__button--num {
     width: 98px;
     height: 98px;
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 12px;
 
-    color: #0080C1;
+    color: #0080c1;
     font-weight: 400;
     font-size: 64px;
     text-align: center;
@@ -59,9 +58,9 @@
 }
 
 .btn {
-    background: #7AC100;
+    background: #7ac100;
     border-radius: 12px;
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 24px;
     line-height: 32px;
     width: 246px;
@@ -72,7 +71,6 @@
 .btn:hover {
     cursor: pointer;
 }
-
 
 .game__wrapper {
     max-width: 1024px;
@@ -93,18 +91,16 @@
 
 .timer {
     font-size: 64px;
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .timer__min {
     position: relative;
-    
-
 }
 
 .timer__min:before {
     position: absolute;
-    content: "min";
+    content: 'min';
     top: -5px;
     right: 0;
     font-size: 16px;
@@ -117,12 +113,11 @@
 
 .timer__sek:before {
     position: absolute;
-    content: "sek";
+    content: 'sek';
     top: -5px;
     right: 0;
     font-size: 16px;
 }
-
 
 .cards {
     display: flex;
@@ -135,7 +130,7 @@
     box-sizing: border-box;
     width: 95px;
     height: 133px;
-    background-image: url(../img/bg-card.svg);
+    /*background-image: url(../img/bg-card.svg);*/
     background-size: auto;
     background-position: center;
     border-radius: 4px;
@@ -147,7 +142,7 @@
     margin: auto;
     max-width: 480px;
     width: 100%;
-    background-color: #C2F5FF;
+    background-color: #c2f5ff;
     border-radius: 12px;
     padding: 50px;
     display: flex;
@@ -184,4 +179,45 @@
     display: block;
     width: 96px;
     height: 96px;
+}
+
+.card--1 {
+    background-image: 'attr(data-image-src)';
+    /*background-image: url(../img/туз_пики.png);*/
+}
+
+.card[data-name='card1'] {
+    background-image: url(../img/туз_пики.png);
+}
+
+.card[data-name='card2'] {
+    background-image: url(../img/король_пики.png);
+}
+
+.card[data-name='card3'] {
+    background-image: url(../img/дама_пики.png);
+}
+
+.card[data-name='card4'] {
+    background-image: url(../img/валет_пики.png);
+}
+
+.card[data-name='card5'] {
+    background-image: url(../img/10_пики.png);
+}
+
+.card[data-name='card6'] {
+    background-image: url(../img/9_пики.png);
+}
+
+.card[data-name='card7'] {
+    background-image: url(../img/8_пики.png);
+}
+
+.card[data-name='card8'] {
+    background-image: url(../img/7_пики.png);
+}
+
+.card[data-name='card9'] {
+    background-image: url(../img/6_пики.png);
 }
