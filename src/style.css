@@ -130,7 +130,7 @@
     box-sizing: border-box;
     width: 95px;
     height: 133px;
-    /*background-image: url(../img/bg-card.svg);*/
+    background-image: url(../img/bg-card.svg);
     background-size: auto;
     background-position: center;
     border-radius: 4px;
@@ -179,11 +179,6 @@
     display: block;
     width: 96px;
     height: 96px;
-}
-
-.card--1 {
-    background-image: 'attr(data-image-src)';
-    /*background-image: url(../img/туз_пики.png);*/
 }
 
 .card[data-name='card1'] {
