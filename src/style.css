@@ -1,7 +1,7 @@
-* {
+body {
     margin: 0;
     padding: 0;
-    font-family: Montserrat;
+    font-family: Montserrat, sans-serif;
     box-sizing: border-box;
 }
 
@@ -43,9 +43,8 @@
 .level__button--num {
     width: 98px;
     height: 98px;
-    background: #ffffff;
+    background: #fff;
     border-radius: 12px;
-
     color: #0080c1;
     font-weight: 400;
     font-size: 64px;
@@ -60,7 +59,7 @@
 .btn {
     background: #7ac100;
     border-radius: 12px;
-    color: #ffffff;
+    color: #fff;
     font-size: 24px;
     line-height: 32px;
     width: 246px;
@@ -76,10 +75,7 @@
     max-width: 1024px;
     width: 100%;
     margin: 0 auto;
-    padding-left: 23px;
-    padding-right: 23px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 50px 23px;
 }
 
 .top {
@@ -91,14 +87,14 @@
 
 .timer {
     font-size: 64px;
-    color: #ffffff;
+    color: #fff;
 }
 
 .timer__min {
     position: relative;
 }
 
-.timer__min:before {
+.timer__min::before {
     position: absolute;
     content: 'min';
     top: -5px;
@@ -111,7 +107,7 @@
     position: relative;
 }
 
-.timer__sek:before {
+.timer__sek::before {
     position: absolute;
     content: 'sek';
     top: -5px;
@@ -130,14 +126,15 @@
     box-sizing: border-box;
     width: 95px;
     height: 133px;
-    background-image: url(../img/bg-card.svg);
+    background-image: url('../img/bg-card.svg');
     background-size: auto;
     background-position: center;
     border-radius: 4px;
     border: 6px solid #fff;
 }
 
-/* popup*/
+/* popup */
+
 .popup {
     margin: auto;
     max-width: 480px;
@@ -163,7 +160,7 @@
 .popup__title--time {
     font-size: 24px;
     line-height: 32px;
-    color: #000000;
+    color: #000;
     margin-bottom: 10px;
 }
 
@@ -171,7 +168,7 @@
     font-weight: 400;
     font-size: 64px;
     line-height: 72px;
-    color: #000000;
+    color: #000;
     margin-bottom: 35px;
 }
 
@@ -182,37 +179,73 @@
 }
 
 .card[data-name='card1'] {
-    background-image: url(../img/туз_пики.png);
+    background-image: url('../img/туз_пики.png');
 }
 
 .card[data-name='card2'] {
-    background-image: url(../img/король_пики.png);
+    background-image: url('../img/король_пики.png');
 }
 
 .card[data-name='card3'] {
-    background-image: url(../img/дама_пики.png);
+    background-image: url('../img/дама_пики.png');
 }
 
 .card[data-name='card4'] {
-    background-image: url(../img/валет_пики.png);
+    background-image: url('../img/валет_пики.png');
 }
 
 .card[data-name='card5'] {
-    background-image: url(../img/10_пики.png);
+    background-image: url('../img/10_пики.png');
 }
 
 .card[data-name='card6'] {
-    background-image: url(../img/9_пики.png);
+    background-image: url('../img/9_пики.png');
 }
 
 .card[data-name='card7'] {
-    background-image: url(../img/8_пики.png);
+    background-image: url('../img/8_пики.png');
 }
 
 .card[data-name='card8'] {
-    background-image: url(../img/7_пики.png);
+    background-image: url('../img/7_пики.png');
 }
 
 .card[data-name='card9'] {
-    background-image: url(../img/6_пики.png);
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card10'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card11'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card12'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card13'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card14'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card15'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card16'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card17'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card18'] {
+    background-image: url('../img/6_пики.png');
 }
