@@ -1,0 +1,251 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Montserrat, sans-serif;
+    box-sizing: border-box;
+}
+
+.game {
+    background-color: #004980;
+    width: 100%;
+    display: flex;
+}
+
+.level {
+    margin: auto;
+    max-width: 480px;
+    width: 100%;
+    background-color: #c2f5ff;
+    border-radius: 12px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.level__title {
+    text-align: center;
+    color: #004980;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    max-width: 240px;
+    margin-bottom: 48px;
+}
+
+.level__buttons {
+    margin-bottom: 65px;
+    display: flex;
+    gap: 24px;
+}
+
+.level__button--num {
+    width: 98px;
+    height: 98px;
+    background: #fff;
+    border-radius: 12px;
+    color: #0080c1;
+    font-weight: 400;
+    font-size: 64px;
+    text-align: center;
+    line-height: 98px;
+}
+
+.level__button--num:hover {
+    cursor: pointer;
+}
+
+.btn {
+    background: #7ac100;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 24px;
+    line-height: 32px;
+    width: 246px;
+    height: 48px;
+    border: none;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.game__wrapper {
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 50px 23px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.timer {
+    font-size: 64px;
+    color: #fff;
+}
+
+.timer__min {
+    position: relative;
+}
+
+.timer__min::before {
+    position: absolute;
+    content: 'min';
+    top: -5px;
+    right: 0;
+    font-size: 16px;
+    height: 16px;
+}
+
+.timer__sek {
+    position: relative;
+}
+
+.timer__sek::before {
+    position: absolute;
+    content: 'sek';
+    top: -5px;
+    right: 0;
+    font-size: 16px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.card {
+    box-sizing: border-box;
+    width: 95px;
+    height: 133px;
+    background-image: url('../img/bg-card.svg');
+    background-size: auto;
+    background-position: center;
+    border-radius: 4px;
+    border: 6px solid #fff;
+}
+
+/* popup */
+
+.popup {
+    margin: auto;
+    max-width: 480px;
+    width: 100%;
+    background-color: #c2f5ff;
+    border-radius: 12px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup__title {
+    text-align: center;
+    color: #004980;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    margin-bottom: 28px;
+}
+
+.popup__title--time {
+    font-size: 24px;
+    line-height: 32px;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.time {
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 72px;
+    color: #000;
+    margin-bottom: 35px;
+}
+
+.popup-win__img {
+    display: block;
+    width: 96px;
+    height: 96px;
+}
+
+.card[data-name='card1'] {
+    background-image: url('../img/туз_пики.png');
+}
+
+.card[data-name='card2'] {
+    background-image: url('../img/король_пики.png');
+}
+
+.card[data-name='card3'] {
+    background-image: url('../img/дама_пики.png');
+}
+
+.card[data-name='card4'] {
+    background-image: url('../img/валет_пики.png');
+}
+
+.card[data-name='card5'] {
+    background-image: url('../img/10_пики.png');
+}
+
+.card[data-name='card6'] {
+    background-image: url('../img/9_пики.png');
+}
+
+.card[data-name='card7'] {
+    background-image: url('../img/8_пики.png');
+}
+
+.card[data-name='card8'] {
+    background-image: url('../img/7_пики.png');
+}
+
+.card[data-name='card9'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card10'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card11'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card12'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card13'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card14'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card15'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card16'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card17'] {
+    background-image: url('../img/6_пики.png');
+}
+
+.card[data-name='card18'] {
+    background-image: url('../img/6_пики.png');
+}

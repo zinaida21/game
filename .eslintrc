@@ -1,0 +1,27 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "extends": ["eslint:recommended", "prettier"],
+    "plugins": ["stylelint-selector-bem-pattern", "prettier"],
+    "rules": {
+        "selector-class-pattern": "null",
+        "prettier/prettier": "error",
+        "camelcase": ["error"],
+        "semi": ["error"],
+        "eqeqeq": ["error", "always"],
+        "plugin/selector-bem-pattern": {
+            "componentName": "[A-Z]+",
+            "componentSelectors": {
+                "initial": "^\\.{componentName}(?:-[a-z]+)?$",
+                "combined": "^\\.combined-{componentName}-[a-z]+$"
+            },
+            "utilitySelectors": "^\\.util-[a-z]+$"
+        }
+    }
+}
