@@ -6,6 +6,7 @@ body {
 }
 
 .game {
+    height: 100vh;
     background-color: #004980;
     width: 100%;
     display: flex;
@@ -72,6 +73,7 @@ body {
 }
 
 .game__wrapper {
+    display: none;
     max-width: 1024px;
     width: 100%;
     margin: 0 auto;
@@ -178,23 +180,23 @@ body {
     height: 96px;
 }
 
-.card[data-name='card1'] {
+.card[data-name='1'] {
     background-image: url('../img/туз_пики.png');
 }
 
-.card[data-name='card2'] {
+.card[data-name='2'] {
     background-image: url('../img/король_пики.png');
 }
 
-.card[data-name='card3'] {
+.card[data-name='3'] {
     background-image: url('../img/дама_пики.png');
 }
 
-.card[data-name='card4'] {
+.card[data-name='4'] {
     background-image: url('../img/валет_пики.png');
 }
 
-.card[data-name='card5'] {
+.card[data-name='5'] {
     background-image: url('../img/10_пики.png');
 }
 

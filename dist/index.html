@@ -1,0 +1,91 @@
+<!doctype html><html lang="ru"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Document</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet"/><link rel="stylesheet" href="style.css"/><script defer="defer" src="bundle.js"></script></head><body><section class="game"><div class="level"><p class="level__title">Выбери сложность</p><div class="level__buttons"><div class="level__button--num level__button--1" data-order="1">1</div><div class="level__button--num level__button--2" data-order="2">2</div><div class="level__button--num level__button--3" data-order="3">3</div></div><button class="btn level__button--start">Старт</button></div><div class="game__wrapper"><div class="top"><div class="timer"><span class="timer__min">00</span>.<span class="timer__sek">00</span></div><button class="btn top__btn">Начать заново</button></div><div class="cards"></div></div></section><script>const buttonsParent = document.querySelector('.level__buttons');
+            //const buttonsLevel = document.querySelectorAll('.level__button--num');
+            const level = document.querySelector('.level');
+            const buttonStart = document.querySelector('.level__button--start');
+            const gameField = document.querySelector('.game__wrapper');
+            const cards = document.querySelector('.cards');
+
+            buttonsParent.addEventListener('click', function (event) {
+                let target = event.target;
+                let targetLevel = target.getAttribute('data-order');
+                //console.log(targetLevel + ' уровень');
+                if (targetLevel === '1') {
+                    console.log(targetLevel);
+                    buttonStart.addEventListener('click', function () {
+                        level.style.display = 'none';
+                        lowLevel();
+                    });
+                }
+                if (targetLevel === '2') {
+                    console.log(targetLevel);
+                    buttonStart.addEventListener('click', function () {
+                        level.style.display = 'none';
+                        middleLevel();
+                    });
+                }
+                if (targetLevel === '3') {
+                    console.log(targetLevel);
+                    buttonStart.addEventListener('click', function () {
+                        level.style.display = 'none';
+                        highLevel();
+                    });
+                }
+            });
+
+            function lowLevel() {
+                console.log('1 уровень');
+                gameField.style.display = 'block';
+                /*let card = document.createElement('div');
+                card.classList.add('card');
+                card.dataset.name = 'card1';
+                cards.appendChild(card);*/
+                for (let i = 0; i < 12; i++) {
+                    cards.appendChild(createCard('card'));
+
+                    //card.dataset.name = i;
+                }
+            }
+
+            function middleLevel() {
+                console.log('2 уровень');
+                gameField.style.display = 'block';
+                for (let i = 0; i < 24; i++) {
+                    cards.appendChild(createCard('card'));
+
+                    //card.dataset.name = i;
+                }
+            }
+
+            function highLevel() {
+                console.log('3 уровень');
+                gameField.style.display = 'block';
+                for (let i = 0; i < 36; i++) {
+                    cards.appendChild(createCard('card'));
+
+                    //card.dataset.name = i;
+                }
+            }
+
+            function createCard(className) {
+                let div = document.createElement('div');
+                div.className = className;
+                div.classList.add('card');
+
+                /* for (let i = 1; i < 7; i++) {
+                    div.dataset.name = i;
+                    console.log(i);
+                }*/
+
+                //let ramdomPos = Math.floor(Math.random() * 6);
+                //div.style.order = ramdomPos;
+
+                //div.dataset.name = ramdomPos;
+                //console.log(ramdomPos);
+
+                return div;
+            }
+
+            /*function getRandomInRange(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            console.log(getRandomInRange(1, 5));*/</script></body></html>
