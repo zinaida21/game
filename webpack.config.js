@@ -10,6 +10,11 @@ module.exports = {
     mode, //production | development
     module: {
         rules: [
+            {
+                test: /\.ts$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
             { test: /\.css$/, use: ['style-loader', 'css-loader'] },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -21,6 +26,9 @@ module.exports = {
             },
             //{ test: /\.(js)$/, use: 'babel-loader' },
         ],
+    },
+    resolve: {
+        extensions: ['.ts', '.js'],
     },
     optimization: {
         minimizer: ['...', new CssMinimizerPlugin()],

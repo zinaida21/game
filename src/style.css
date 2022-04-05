@@ -53,6 +53,10 @@ body {
     line-height: 98px;
 }
 
+.active {
+    box-shadow: 0 0 6px rgb(0 0 0 / 30%) inset;
+}
+
 .level__button--num:hover {
     cursor: pointer;
 }
@@ -122,17 +126,30 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
+    perspective: 1000px;
 }
 
 .card {
     box-sizing: border-box;
     width: 95px;
     height: 133px;
-    background-image: url('../img/bg-card.svg');
     background-size: auto;
     background-position: center;
     border-radius: 4px;
     border: 6px solid #fff;
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.card:active {
+    transform: scale(0.97);
+    transition: transform 0.2s;
+}
+
+.card.flip {
+    background-image: url('../img/bg-card.svg') !important; /* рубашка */
+    transform: rotateY(180deg);
 }
 
 /* popup */
@@ -180,74 +197,146 @@ body {
     height: 96px;
 }
 
-.card[data-name='1'] {
+.card[data-name='0'] {
     background-image: url('../img/туз_пики.png');
 }
 
-.card[data-name='2'] {
+.card[data-name='1'] {
     background-image: url('../img/король_пики.png');
 }
 
-.card[data-name='3'] {
+.card[data-name='2'] {
     background-image: url('../img/дама_пики.png');
 }
 
-.card[data-name='4'] {
+.card[data-name='3'] {
     background-image: url('../img/валет_пики.png');
 }
 
-.card[data-name='5'] {
+.card[data-name='4'] {
     background-image: url('../img/10_пики.png');
 }
 
-.card[data-name='card6'] {
+.card[data-name='5'] {
     background-image: url('../img/9_пики.png');
 }
 
-.card[data-name='card7'] {
+.card[data-name='6'] {
     background-image: url('../img/8_пики.png');
 }
 
-.card[data-name='card8'] {
+.card[data-name='7'] {
     background-image: url('../img/7_пики.png');
 }
 
-.card[data-name='card9'] {
+.card[data-name='8'] {
     background-image: url('../img/6_пики.png');
 }
 
-.card[data-name='card10'] {
-    background-image: url('../img/6_пики.png');
+.card[data-name='9'] {
+    background-image: url('../img/туз_черви.png');
 }
 
-.card[data-name='card11'] {
-    background-image: url('../img/6_пики.png');
+.card[data-name='10'] {
+    background-image: url('../img/король_черви.png');
 }
 
-.card[data-name='card12'] {
-    background-image: url('../img/6_пики.png');
+.card[data-name='11'] {
+    background-image: url('../img/дама_черви.png');
 }
 
-.card[data-name='card13'] {
-    background-image: url('../img/6_пики.png');
+.card[data-name='12'] {
+    background-image: url('../img/валет_черви.png');
 }
 
-.card[data-name='card14'] {
-    background-image: url('../img/6_пики.png');
+.card[data-name='13'] {
+    background-image: url('../img/10_черви.png');
 }
 
-.card[data-name='card15'] {
-    background-image: url('../img/6_пики.png');
+.card[data-name='14'] {
+    background-image: url('../img/9_черви.png');
 }
 
-.card[data-name='card16'] {
-    background-image: url('../img/6_пики.png');
+.card[data-name='15'] {
+    background-image: url('../img/8_черви.png');
 }
 
-.card[data-name='card17'] {
-    background-image: url('../img/6_пики.png');
+.card[data-name='16'] {
+    background-image: url('../img/7_черви.png');
 }
 
-.card[data-name='card18'] {
-    background-image: url('../img/6_пики.png');
+.card[data-name='17'] {
+    background-image: url('../img/6_черви.png');
+}
+
+.card[data-name='18'] {
+    background-image: url('../img/туз_бубны.png');
+}
+
+.card[data-name='19'] {
+    background-image: url('../img/король_бубны.png');
+}
+
+.card[data-name='20'] {
+    background-image: url('../img/дама_бубны.png');
+}
+
+.card[data-name='21'] {
+    background-image: url('../img/валет_бубны.png');
+}
+
+.card[data-name='22'] {
+    background-image: url('../img/10_бубны.png');
+}
+
+.card[data-name='23'] {
+    background-image: url('../img/9_бубны.png');
+}
+
+.card[data-name='24'] {
+    background-image: url('../img/8_бубны.png');
+}
+
+.card[data-name='25'] {
+    background-image: url('../img/7_бубны.png');
+}
+
+.card[data-name='26'] {
+    background-image: url('../img/6_бубны.png');
+}
+
+.card[data-name='27'] {
+    background-image: url('../img/туз_крести.png');
+}
+
+.card[data-name='28'] {
+    background-image: url('../img/король_крести.png');
+}
+
+.card[data-name='29'] {
+    background-image: url('../img/дама_крести.png');
+}
+
+.card[data-name='30'] {
+    background-image: url('../img/валет_крести.png');
+}
+
+.card[data-name='31'] {
+    background-image: url('../img/10_крести.png');
+}
+
+.card[data-name='32'] {
+    background-image: url('../img/9_крести.png');
+}
+
+.card[data-name='33'] {
+    background-image: url('../img/8_крести.png');
+}
+
+.card[data-name='34'] {
+    background-image: url('../img/7_крести.png');
+}
+
+.card[data-name='35'] {
+    background-image: url('../img/6_крести.png');
 }
