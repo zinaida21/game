@@ -36,12 +36,7 @@
 
             <div class="game__wrapper">
                 <div class="top">
-                    <div class="timer">
-                        <span class="timer__min">00</span>.<span
-                            class="timer__sek"
-                            >00</span
-                        >
-                    </div>
+                    <div class="timer">00:00:00</div>
                     <button class="btn top__btn">Начать заново</button>
                 </div>
                 <div class="cards">
@@ -62,7 +57,6 @@
             const buttonStart = document.querySelector('.level__button--start');
             const gameField = document.querySelector('.game__wrapper');
             const cards = document.querySelector('.cards');
-            const cardsAll = document.querySelectorAll('.card');
 
             //активная кнопка уровня
             for (let i = 0; i < buttonsLevel.length; i++) {
@@ -88,9 +82,11 @@
                         }
                         if (buttonData === '2') {
                             middleLevel();
+                            startTimer();
                         }
                         if (buttonData === '3') {
                             highLevel();
+                            startTimer();
                         }
                     }
                 });
@@ -131,6 +127,61 @@
                 return;
             }
 
+            let hasFlippedCard = false; //если карта не перевернута
+            let lockBoard = false; //если нажата вторая карта
+            let firstCard, secondCard;
+
+            function flipCardClick() {
+                if (lockBoard) return;
+                if (this === firstCard) return;
+                this.classList.remove('flip');
+
+                if (!hasFlippedCard) {
+                    hasFlippedCard = true;
+                    firstCard = this;
+                    console.log(firstCard.dataset.name);
+                    //console.log(this.dataset.name);
+                    return;
+                }
+
+                //при нажатии на 2ю карту попадаем в блок else
+                secondCard = this;
+                lockBoard = true;
+                //hasFlippedCard = false;
+                console.log(secondCard.dataset.name);
+                //console.log(firstCard.dataset.name);
+                checkForMatch();
+            }
+
+            //сравнение карт
+            function checkForMatch() {
+                let isMatch =
+                    firstCard.dataset.name === secondCard.dataset.name;
+                isMatch ? disableCards() : unflipCards();
+            }
+
+            function disableCards() {
+                firstCard.removeEventListener('click', flipCardClick);
+                secondCard.removeEventListener('click', flipCardClick);
+
+                resetBoard();
+            }
+
+            function unflipCards() {
+                //lockBoard = true;
+                setTimeout(() => {
+                    firstCard.classList.add('flip');
+                    secondCard.classList.add('flip');
+                    //lockBoard = false;
+                    resetBoard();
+                }, 1500);
+            }
+
+            function resetBoard() {
+                [hasFlippedCard, lockBoard] = [false, false];
+                [firstCard, secondCard] = [null, null];
+            }
+
             //рандомное число от 0 до 35 для data-name
             function makeRandom(arg) {
                 if (arg.constructor !== Array) {
@@ -141,101 +192,63 @@
                 };
             }
             const arrNewCard = makeRandom([
-                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
-                18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
-                34, 35,
+                0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+                19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+                35,
             ]);
-            console.log(arrNewCard());
+            //console.log(arrNewCard());
 
             function createCard(className) {
                 //console.log(arrNewCard);
                 let newCard = document.createElement('div');
 
+                //newCard.style.order = arrNewCard();
                 //рандомное число для order (перемешивание карт)
                 let ramdomPos = Math.floor(Math.random() * 36);
                 newCard.style.order = ramdomPos;
-
-                newCard.style.order = arrNewCard();
                 newCard.className = className;
                 newCard.classList.add('card');
-                newCard.setAttribute('data-name', arrNewCard());
+                newCard.setAttribute('data-name', ramdomPos);
 
-                //по клику перевернуть карту
-                /*newCard.addEventListener('click', function flipCardClick() {
-                    this.classList.toggle('flip');
-                });*/
-
-                //по клику перевернуть карту
-                /*function flipCardClick() {
-                    this.classList.toggle('flip');
-                }
-                newCard.addEventListener('click', flipCardClick);*/
-
-                //переворачивать карты по клику
-                let hasFlippedCard = true; //если карта не перевернута
-                let lockBoard = false; //если нажата вторая карта
-                let firstCard, secondCard;
-
-                function flipCardClick() {
-                    if (lockBoard) return;
-                    this.classList.remove('flip');
-
-                    if (!hasFlippedCard) {
-                        hasFlippedCard = true;
-                        firstCard = this;
-                        return;
-                    }
-                    secondCard = this;
-                    //hasFlippedCard = false;
-
-                    checkForMatch();
-                }
-
-                //сравнение карт
-                function checkForMatch() {
-                    //console.log(firstCard.dataset.name);
-                    if (firstCard.dataset.name === secondCard.dataset.name) {
-                        disableCards();
-                        return;
-                    }
-                    unflipCards();
-                }
-
-                //если карты совпадают
-                function disableCards() {
-                    firstCard.removeEventListener('click', flipCardClick);
-                    secondCard.removeEventListener('click', flipCardClick);
-
-                    resetBoard();
-                }
-
-                //если карты НЕ совпадают, показать рубашку через 1,5с
-                function unflipCards() {
-                    lockBoard = true;
-                    setTimeout(() => {
-                        firstCard.classList.add('flip'); //remove
-                        secondCard.classList.add('flip'); //remove
-                        //lockBoard = false;
-                        resetBoard();
-                    }, 1500);
-                }
-
-                //сброс карт
-                function resetBoard() {
-                    [hasFlippedCard, lockBoard] = [false, false];
-                    [firstCard, secondCard] = [null, null];
-                }
-
-                newCard.addEventListener('click', flipCardClick);
+                /*вызваать flipCardClick*/
+                const cardsAll = document.querySelectorAll('.card');
+                cardsAll.forEach((card) =>
+                    card.addEventListener('click', flipCardClick)
+                );
 
                 //показать все карты затем через 4 сек перевернуть рубашкой вверх
                 function flipCard() {
                     newCard.classList.add('flip');
                 }
                 setTimeout(flipCard, 4000);
-
                 return newCard;
             }
+
+            //функция таймера
+            function startTimer(duration, display) {
+                let timer = duration,
+                    minutes,
+                    seconds;
+                setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? '0' + minutes : minutes;
+                    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                    display.textContent = minutes + ':' + seconds;
+
+                    if (++timer < 0) {
+                        timer = duration;
+                    }
+                }, 1000);
+            }
+
+            window.onload = function () {
+                let fiveMinutes = 0,
+                    display = document.querySelector('.timer');
+                startTimer(fiveMinutes, display);
+            };
         </script>
     </body>
 </html>
