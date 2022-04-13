@@ -1,4 +1,4 @@
-<!doctype html><html lang="ru"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Document</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet"/><link rel="stylesheet" href="style.css"/><script defer="defer" src="bundle.js"></script></head><body><section class="game"><div class="level"><p class="level__title">Выбери сложность</p><div class="level__buttons"><div class="level__button--num level__button--1" data-order="1">1</div><div class="level__button--num level__button--2" data-order="2">2</div><div class="level__button--num level__button--3" data-order="3">3</div></div><button class="btn level__button--start">Старт</button></div><div class="game__wrapper"><div class="top"><div class="timer"><span class="timer__min">00</span>.<span class="timer__sek">00</span></div><button class="btn top__btn">Начать заново</button></div><div class="cards"></div></div></section><script>const buttonsParent = document.querySelector('.level__buttons');
+<!doctype html><html lang="ru"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Document</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet"/><link rel="stylesheet" href="style.css"/><script defer="defer" src="bundle.js"></script></head><body><section class="game"><div class="level"><p class="level__title">Выбери сложность</p><div class="level__buttons"><div class="level__button--num level__button--1" data-order="1">1</div><div class="level__button--num level__button--2" data-order="2">2</div><div class="level__button--num level__button--3" data-order="3">3</div></div><button class="btn level__button--start">Старт</button></div><div class="game__wrapper"><div class="top"><div class="timer">00:00</div><button class="btn btn--over">Начать заново</button></div><div class="cards"></div></div></section><div class="popup popup-win"><div class="popup-win__img"></div><p class="popup__title">Вы выиграли!</p><p class="popup__title--time">Затраченное время:</p><div class="time"><div class="timer timer__win">00:00</div></div><button class="btn popup__btn popup--over">Играть снова</button></div><div class="popup popup-losing"><div class="popup-los__img"></div><p class="popup__title">Вы проиграли!</p><p class="popup__title--time">Затраченное время:</p><div class="time"><div class="timer timer__los">00:00</div></div><button class="btn popup__btn popup--over">Играть снова</button></div><script>const buttonsParent = document.querySelector('.level__buttons');
             const buttonsLevel = document.querySelectorAll(
                 '.level__button--num'
             );
@@ -6,7 +6,8 @@
             const buttonStart = document.querySelector('.level__button--start');
             const gameField = document.querySelector('.game__wrapper');
             const cards = document.querySelector('.cards');
-            const cardsAll = document.querySelectorAll('.card');
+            const popupLosing = document.querySelector('.popup-losing');
+            const popupWin = document.querySelector('.popup-win');
 
             //активная кнопка уровня
             for (let i = 0; i < buttonsLevel.length; i++) {
@@ -28,12 +29,15 @@
                         console.log(buttonData + 'класс актив');
 
                         if (buttonData === '1') {
+                            timer();
                             lowLevel();
                         }
                         if (buttonData === '2') {
+                            timer();
                             middleLevel();
                         }
                         if (buttonData === '3') {
+                            timer();
                             highLevel();
                         }
                     }
@@ -45,9 +49,12 @@
                 console.log('1 уровень');
                 level.style.display = 'none';
                 gameField.style.display = 'block';
-                for (let i = 0; i < 6; i++) {
-                    cards.appendChild(createCard('card'));
-                }
+
+                createCardSet(6);
+
+                //когда карты выложны на столе - запустим обработчик нажатий на карту
+                cardClickHandler();
+
                 return;
             }
 
@@ -56,10 +63,11 @@
                 console.log('2 уровень');
                 level.style.display = 'none';
                 gameField.style.display = 'block';
-                for (let i = 0; i < 24; i++) {
-                    cards.appendChild(createCard('card'));
-                    //card.dataset.name = i;
-                }
+
+                createCardSet(12);
+                //когда карты выложны на столе - запустим обработчик нажатий на карту
+                cardClickHandler();
+
                 return;
             }
 
@@ -68,115 +76,185 @@
                 console.log('3 уровень');
                 level.style.display = 'none';
                 gameField.style.display = 'block';
-                for (let i = 0; i < 36; i++) {
-                    cards.appendChild(createCard('card'));
-                    //card.dataset.name = i;
+
+                createCardSet(18);
+                //когда карты выложны на столе - запустим обработчик нажатий на карту
+                cardClickHandler();
+                return;
+            }
+
+            function createCardSet(numCards) {
+                //создадим массив из 6 карт
+                const cardArr = Array.from(Array(numCards), () =>
+                    createCard('card')
+                );
+
+                //создадим клон нашего массива
+                const clonedArr = cardArr.map((card) => card.cloneNode());
+
+                //создадим набор карт, содержащий в себе повторяющийся массив наших карт
+                const cardsSet = [...cardArr, ...clonedArr];
+
+                //перемешаем набор случайным образом
+                cardsSet
+                    .map((value) => ({ value, sort: Math.random() }))
+                    .sort((a, b) => a.sort - b.sort)
+                    .map(({ value }) => value);
+
+                //разложим массив на игровом поле
+                cardsSet.forEach((card) => {
+                    cards.appendChild(card);
+                });
+
+                return cardsSet;
+            }
+
+            let hasFlippedCard = false; //если карта не перевернута
+            let lockBoard = false; //если нажата вторая карта
+            let firstCard, secondCard;
+
+            function flipCardClick() {
+                if (lockBoard) return;
+                if (this === firstCard) return;
+                this.classList.remove('flip');
+
+                if (!hasFlippedCard) {
+                    hasFlippedCard = true;
+                    firstCard = this;
+                    console.log(firstCard.dataset.name);
+                    //console.log(this.dataset.name);
+                    return;
+                }
+
+                //при нажатии на 2ю карту попадаем в блок else
+                secondCard = this;
+                lockBoard = true;
+                //hasFlippedCard = false;
+                console.log(secondCard.dataset.name);
+                //console.log(firstCard.dataset.name);
+                checkForMatch();
+
+                getResult();
+            }
+
+            //получение результата
+            function getResult() {
+                if (document.querySelectorAll('.card.flip').length === 0) {
+                    console.log('game over');
+                    popupWin.style.display = 'flex';
+                    gameField.style.display = 'none';
+                    clearTimeout(timerRun);
                 }
                 return;
             }
 
-            //рандомное число от 0 до 35 для data-name
-            function makeRandom(arg) {
-                if (arg.constructor !== Array) {
-                    arg = Array.from(arguments);
-                }
-                return function () {
-                    return arg[Math.floor(Math.random() * arg.length)];
-                };
+            //сравнение карт
+            function checkForMatch() {
+                let isMatch =
+                    firstCard.dataset.name === secondCard.dataset.name;
+                isMatch ? disableCards() : unflipCards();
             }
-            const arrNewCard = makeRandom([
-                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
-                18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
-                34, 35,
-            ]);
-            console.log(arrNewCard());
+
+            function disableCards() {
+                firstCard.removeEventListener('click', flipCardClick);
+                secondCard.removeEventListener('click', flipCardClick);
+
+                resetBoard();
+            }
+
+            function unflipCards() {
+                //lockBoard = true;
+                setTimeout(() => {
+                    firstCard.classList.add('flip');
+                    secondCard.classList.add('flip');
+                    //lockBoard = false;
+                    resetBoard();
+                }, 1500);
+            }
+
+            function resetBoard() {
+                [hasFlippedCard, lockBoard] = [false, false];
+                [firstCard, secondCard] = [null, null];
+            }
 
             function createCard(className) {
                 //console.log(arrNewCard);
                 let newCard = document.createElement('div');
 
-                //рандомное число для order (перемешивание карт)
+                //рандомное число для data
                 let ramdomPos = Math.floor(Math.random() * 36);
-                newCard.style.order = ramdomPos;
-
-                newCard.style.order = arrNewCard();
+                //newCard.style.order = arrNewCard();
                 newCard.className = className;
                 newCard.classList.add('card');
-                newCard.setAttribute('data-name', arrNewCard());
-
-                //по клику перевернуть карту
-                /*newCard.addEventListener('click', function flipCardClick() {
-                    this.classList.toggle('flip');
-                });*/
-
-                //по клику перевернуть карту
-                /*function flipCardClick() {
-                    this.classList.toggle('flip');
-                }
-                newCard.addEventListener('click', flipCardClick);*/
-
-                //переворачивать карты по клику
-                let hasFlippedCard = true; //если карта не перевернута
-                let lockBoard = false; //если нажата вторая карта
-                let firstCard, secondCard;
-
-                function flipCardClick() {
-                    if (lockBoard) return;
-                    this.classList.remove('flip');
-
-                    if (!hasFlippedCard) {
-                        hasFlippedCard = true;
-                        firstCard = this;
-                        return;
-                    }
-                    secondCard = this;
-                    //hasFlippedCard = false;
-
-                    checkForMatch();
-                }
-
-                //сравнение карт
-                function checkForMatch() {
-                    //console.log(firstCard.dataset.name);
-                    if (firstCard.dataset.name === secondCard.dataset.name) {
-                        disableCards();
-                        return;
-                    }
-                    unflipCards();
-                }
-
-                //если карты совпадают
-                function disableCards() {
-                    firstCard.removeEventListener('click', flipCardClick);
-                    secondCard.removeEventListener('click', flipCardClick);
-
-                    resetBoard();
-                }
-
-                //если карты НЕ совпадают, показать рубашку через 1,5с
-                function unflipCards() {
-                    lockBoard = true;
-                    setTimeout(() => {
-                        firstCard.classList.add('flip'); //remove
-                        secondCard.classList.add('flip'); //remove
-                        //lockBoard = false;
-                        resetBoard();
-                    }, 1500);
-                }
-
-                //сброс карт
-                function resetBoard() {
-                    [hasFlippedCard, lockBoard] = [false, false];
-                    [firstCard, secondCard] = [null, null];
-                }
-
-                newCard.addEventListener('click', flipCardClick);
-
-                //показать все карты затем через 4 сек перевернуть рубашкой вверх
-                function flipCard() {
-                    newCard.classList.add('flip');
-                }
-                setTimeout(flipCard, 4000);
+                newCard.setAttribute('data-name', ramdomPos);
 
                 return newCard;
+            }
+
+            function cardClickHandler() {
+                const cardsAll = document.querySelectorAll('.card');
+                //показать все карты затем через 4 сек перевернуть рубашкой вверх
+                function flipCard(card) {
+                    card.classList.add('flip');
+                }
+
+                cardsAll.forEach((card) => {
+                    card.addEventListener('click', flipCardClick);
+                    setTimeout(() => flipCard(card), 4000);
+                });
+            }
+
+            //кнопка начать заново
+            const startOver = document.querySelectorAll('.popup--over');
+            const startGame = document.querySelector('.btn--over');
+            for (let i = 0; i < startOver.length; i++) {
+                startOver[i].addEventListener('click', function () {
+                    level.style.display = 'flex';
+                    gameField.style.display = 'none';
+                    popupLosing.style.display = 'none';
+                    popupWin.style.display = 'none';
+                    location.reload();
+                });
+            }
+
+            startGame.addEventListener('click', function () {
+                location.reload();
+            });
+
+            let timerRun;
+            //функция таймера
+            function startTimer(duration, display) {
+                let timer = duration,
+                    minutes,
+                    seconds;
+                timerRun = setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? '0' + minutes : minutes;
+                    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                    display.textContent = minutes + ':' + seconds;
+                    display2.textContent = minutes + ':' + seconds;
+                    display3.textContent = minutes + ':' + seconds;
+
+                    if (++timer < 0) {
+                        timer = duration;
+                    }
+                }, 1000);
+            }
+
+            /*window.onload = function () {
+                let fiveMinutes = 0,
+                    display = document.querySelector('.timer');
+                startTimer(fiveMinutes, display);
+            };*/
+
+            function timer() {
+                let fiveMinutes = 0;
+                display = document.querySelector('.timer');
+                display2 = document.querySelector('.timer__win');
+                display3 = document.querySelector('.timer__los');
+
+                startTimer(fiveMinutes, display);
             }</script></body></html>
