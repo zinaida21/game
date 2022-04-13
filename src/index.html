@@ -200,19 +200,6 @@
                 console.log(secondCard.dataset.name);
                 //console.log(firstCard.dataset.name);
                 checkForMatch();
-
-                getResult();
-            }
-
-            //получение результата
-            function getResult() {
-                if (document.querySelectorAll('.card.flip').length === 0) {
-                    console.log('game over');
-                    popupWin.style.display = 'flex';
-                    gameField.style.display = 'none';
-                    clearTimeout(timerRun);
-                }
-                return;
             }
 
             //сравнение карт
@@ -227,6 +214,18 @@
                 secondCard.removeEventListener('click', flipCardClick);
 
                 resetBoard();
+                getResult();
+            }
+
+            //получение результата
+            function getResult() {
+                if (document.querySelectorAll('.card.flip').length === 0) {
+                    console.log('game over');
+                    popupWin.style.display = 'flex';
+                    gameField.style.display = 'none';
+                    clearTimeout(timerRun);
+                }
+                return;
             }
 
             function unflipCards() {
@@ -288,8 +287,9 @@
                 location.reload();
             });
 
-            let timerRun;
             //функция таймера
+            let timerRun;
+
             function startTimer(duration, display) {
                 let timer = duration,
                     minutes,
