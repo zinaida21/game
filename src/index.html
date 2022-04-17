@@ -163,13 +163,13 @@
                 const cardsSet = [...cardArr, ...clonedArr];
 
                 //перемешаем набор случайным образом
-                cardsSet
+                const shuffledSet = cardsSet
                     .map((value) => ({ value, sort: Math.random() }))
                     .sort((a, b) => a.sort - b.sort)
                     .map(({ value }) => value);
 
                 //разложим массив на игровом поле
-                cardsSet.forEach((card) => {
+                shuffledSet.forEach((card) => {
                     cards.appendChild(card);
                 });
 
@@ -265,8 +265,11 @@
                 }
 
                 cardsAll.forEach((card) => {
-                    card.addEventListener('click', flipCardClick);
-                    setTimeout(() => flipCard(card), 4000);
+                    setTimeout(() => {
+                        flipCard(card);
+                        //обработчики кликов сработает после того как карты будут перевёрнуты
+                        card.addEventListener('click', flipCardClick);
+                    }, 4000);
                 });
             }
 
@@ -310,12 +313,6 @@
                     }
                 }, 1000);
             }
-
-            /*window.onload = function () {
-                let fiveMinutes = 0,
-                    display = document.querySelector('.timer');
-                startTimer(fiveMinutes, display);
-            };*/
 
             function timer() {
                 let fiveMinutes = 0;

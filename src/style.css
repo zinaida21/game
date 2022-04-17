@@ -6,7 +6,7 @@ body {
 }
 
 .game {
-    height: 100vh;
+    min-height: 100vh;
     background-color: #004980;
     width: 100%;
     display: flex;
@@ -233,6 +233,16 @@ body {
     width: 96px;
     height: 96px;
     background-image: url('../img/Image-losing.svg');
+}
+
+@media screen and (max-width: 768px) {
+    .timer {
+        font-size: 48px;
+    }
+
+    .game__wrapper {
+        padding: 50px 15px;
+    }
 }
 
 .card[data-name='1'] {
