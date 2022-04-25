@@ -39,8 +39,10 @@ for (let i = 0; i < buttonsLevel.length; i++) {
 //1 уровень
 function lowLevel() {
     console.log('1 уровень');
-    level.style.display = 'none';
-    gameField.style.display = 'block';
+    //level.style.display = 'none';
+    level.setAttribute('style', 'display:none;');
+    //gameField.style.display = 'block';
+    gameField.setAttribute('style', 'display: block;');
 
     createCardSet(6);
 
@@ -53,8 +55,8 @@ function lowLevel() {
 //2 уровень
 function middleLevel() {
     console.log('2 уровень');
-    level.style.display = 'none';
-    gameField.style.display = 'block';
+    level.setAttribute('style', 'display: none;');
+    gameField.setAttribute('style', 'display: block;');
 
     createCardSet(12);
     //когда карты выложны на столе - запустим обработчик нажатий на карту
@@ -66,8 +68,8 @@ function middleLevel() {
 //3 уровень
 function highLevel() {
     console.log('3 уровень');
-    level.style.display = 'none';
-    gameField.style.display = 'block';
+    level.setAttribute('style', 'display: none;');
+    gameField.setAttribute('style', 'display: block;');
 
     createCardSet(18);
     //когда карты выложны на столе - запустим обработчик нажатий на карту
@@ -75,7 +77,7 @@ function highLevel() {
     return;
 }
 
-function createCardSet(numCards) {
+function createCardSet(numCards: any) {
     //создадим массив из 6 карт
     const cardArr = Array.from(Array(numCards), () => createCard('card'));
 
@@ -101,7 +103,7 @@ function createCardSet(numCards) {
 
 let hasFlippedCard = false; //если карта не перевернута
 let lockBoard = false; //если нажата вторая карта
-let firstCard, secondCard;
+let firstCard: any, secondCard: any;
 
 function flipCardClick() {
     if (lockBoard) return;
@@ -143,8 +145,8 @@ function disableCards() {
 function getResult() {
     if (document.querySelectorAll('.card.flip').length === 0) {
         console.log('game over');
-        popupWin.style.display = 'flex';
-        gameField.style.display = 'none';
+        popupWin.setAttribute('style', 'display: flex;');
+        gameField.setAttribute('style', 'display: none;');
         clearTimeout(timerRun);
     }
     return;
@@ -165,7 +167,7 @@ function resetBoard() {
     [firstCard, secondCard] = [null, null];
 }
 
-function createCard(className) {
+function createCard(className: any) {
     //console.log(arrNewCard);
     let newCard = document.createElement('div');
 
@@ -182,7 +184,7 @@ function createCard(className) {
 function cardClickHandler() {
     const cardsAll = document.querySelectorAll('.card');
     //показать все карты затем через 4 сек перевернуть рубашкой вверх
-    function flipCard(card) {
+    function flipCard(card: any) {
         card.classList.add('flip');
     }
 
@@ -200,10 +202,10 @@ const startOver = document.querySelectorAll('.popup--over');
 const startGame = document.querySelector('.btn--over');
 for (let i = 0; i < startOver.length; i++) {
     startOver[i].addEventListener('click', function () {
-        level.style.display = 'flex';
-        gameField.style.display = 'none';
-        popupLosing.style.display = 'none';
-        popupWin.style.display = 'none';
+        level.setAttribute('style', 'display: flex;');
+        gameField.setAttribute('style', 'display: none;');
+        popupLosing.setAttribute('style', 'display: none;');
+        popupWin.setAttribute('style', 'display: none;');
         location.reload();
     });
 }
