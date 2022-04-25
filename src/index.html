@@ -163,13 +163,13 @@
                 const cardsSet = [...cardArr, ...clonedArr];
 
                 //перемешаем набор случайным образом
-                cardsSet
+                const shuffledSet = cardsSet
                     .map((value) => ({ value, sort: Math.random() }))
                     .sort((a, b) => a.sort - b.sort)
                     .map(({ value }) => value);
 
                 //разложим массив на игровом поле
-                cardsSet.forEach((card) => {
+                shuffledSet.forEach((card) => {
                     cards.appendChild(card);
                 });
 
@@ -200,19 +200,6 @@
                 console.log(secondCard.dataset.name);
                 //console.log(firstCard.dataset.name);
                 checkForMatch();
-
-                getResult();
-            }
-
-            //получение результата
-            function getResult() {
-                if (document.querySelectorAll('.card.flip').length === 0) {
-                    console.log('game over');
-                    popupWin.style.display = 'flex';
-                    gameField.style.display = 'none';
-                    clearTimeout(timerRun);
-                }
-                return;
             }
 
             //сравнение карт
@@ -227,6 +214,18 @@
                 secondCard.removeEventListener('click', flipCardClick);
 
                 resetBoard();
+                getResult();
+            }
+
+            //получение результата
+            function getResult() {
+                if (document.querySelectorAll('.card.flip').length === 0) {
+                    console.log('game over');
+                    popupWin.style.display = 'flex';
+                    gameField.style.display = 'none';
+                    clearTimeout(timerRun);
+                }
+                return;
             }
 
             function unflipCards() {
@@ -266,8 +265,11 @@
                 }
 
                 cardsAll.forEach((card) => {
-                    card.addEventListener('click', flipCardClick);
-                    setTimeout(() => flipCard(card), 4000);
+                    setTimeout(() => {
+                        flipCard(card);
+                        //обработчики кликов сработает после того как карты будут перевёрнуты
+                        card.addEventListener('click', flipCardClick);
+                    }, 4000);
                 });
             }
 
@@ -288,8 +290,9 @@
                 location.reload();
             });
 
-            let timerRun;
             //функция таймера
+            let timerRun;
+
             function startTimer(duration, display) {
                 let timer = duration,
                     minutes,
@@ -310,12 +313,6 @@
                     }
                 }, 1000);
             }
-
-            /*window.onload = function () {
-                let fiveMinutes = 0,
-                    display = document.querySelector('.timer');
-                startTimer(fiveMinutes, display);
-            };*/
 
             function timer() {
                 let fiveMinutes = 0;
